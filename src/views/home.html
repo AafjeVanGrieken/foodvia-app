@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Import Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Import Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Import Alpine -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+</head>
+
+
+<body class="" x-data="{ rekening: new Rekening(), rekeningPopup: false, products: [] }"
+    x-init="products = await (await fetch('/products')).json()">
+    <div class="p-4 bg-green-200 w-screen fixed">
+        <div class="flex justify-between items-center">
+            <span class="text-2xl">FOODVIA</span>
+            <button class="bg-green-500 text-white p-2 rounded" @click="rekening = new Rekening()">Reset</button>
+        </div>
+    </div>
+    <div class="p-4">
+        <div class="product-grid grid grid-cols-2 pt-16 pb-32 gap-4">
+            <template x-if="products.length > 0">
+                <template x-for="product in products">
+                    <template x-if="product.category == 'bier'">
+                        <div class="bg-yellow-300 rounded p-2" @click="rekening.add(product)">
+                            <div class="text-2xl" x-text="product.name"></div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+
+            <template x-if="products.length > 0">
+                <template x-for="product in products">
+                    <template x-if="product.category == 'wijn'">
+                        <div class="bg-purple-300 rounded p-2" @click="rekening.add(product)">
+                            <div class="text-2xl" x-text="product.name"></div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+
+            <template x-if="products.length > 0">
+                <template x-for="product in products">
+                    <template x-if="product.category == 'fris'">
+                        <div class="bg-blue-300 rounded p-2" @click="rekening.add(product)">
+                            <div class="text-2xl" x-text="product.name"></div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+
+            <template x-if="products.length > 0">
+                <template x-for="product in products">
+                    <template x-if="product.category == 'eten'">
+                        <div class="bg-green-300 rounded p-2" @click="rekening.add(product)">
+                            <div class="text-2xl" x-text="product.name"></div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+            
+        </div>
+    </div>
+
+    </div>
+    <div class="fixed bottom-0 p-4 bg-green-200 w-screen">
+        <div class="flex justify-between items-center w-full">
+            <b>TOTAL</b>
+            <div class="flex items-center">
+                <span class="text-4xl">€<b class="" x-html="rekening.saldo / 100"></b></span>
+                <button class="bg-green-500 text-white p-2 rounded ml-4" @click="rekeningPopup = true">Rekening</button>
+            </div>
+        </div>
+    </div>
+
+    <template x-if="rekeningPopup">
+        <div class="w-screen h-screen fixed bg-white p-4 top-0">
+            <div class="flex justify-between">
+                <div>Rekening</div>
+                <div @click="rekeningPopup = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-12 h-12">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                </div>
+            </div>
+            <template x-if="rekening.products.length > 0">
+                <template x-for="product in rekening.products">
+                    <div class="flex justify-between bg-gray-300 p-2 rounded mb-2" @click="rekening.remove(product)" >
+                        <div x-text="product.name"></div>
+                        <div x-text="product.price / 100"></div>
+                    </div>
+                </template>
+            </template>
+            <div class="flex justify-between text-bold mt-8 text-2xl">
+                <div>Total</div>
+                <div>
+                    €
+                    <span x-text="rekening.saldo / 100"></span>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+
+
+    <script src="/js/app.js"></script>
+
+
+</body>
+
+</html>
