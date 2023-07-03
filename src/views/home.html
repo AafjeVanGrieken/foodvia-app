@@ -51,7 +51,7 @@
             <template x-if="products.length > 0">
                 <template x-for="product in products">
                     <template x-if="product.category == 'fris'">
-                        <div class="bg-indigo-400 rounded p-2" @click="rekening.add(product)">
+                        <div class="bg-blue-300 rounded p-2" @click="rekening.add(product)">
                             <div class="text-2xl" x-text="product.name"></div>
                         </div>
                     </template>
