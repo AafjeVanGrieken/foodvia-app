@@ -20,10 +20,10 @@
 
 <body class="" x-data="{ rekening: new Rekening(), rekeningPopup: false, products: [] }"
     x-init="products = await (await fetch('/products')).json()">
-    <div class="p-4 bg-green-600 w-screen fixed">
+    <div class="p-4 bg-green-300 w-screen fixed">
         <div class="flex justify-between items-center">
             <span class="text-2xl">FOODVIA ARNHEM PROEFT</span>
-            <button class="bg-green-800 text-white p-2 rounded" @click="rekening = new Rekening()">Reset</button>
+            <button class="bg-green-600 text-white p-2 rounded" @click="rekening = new Rekening()">Reset</button>
         </div>
     </div>
     <div class="p-4">
@@ -51,7 +51,7 @@
             <template x-if="products.length > 0">
                 <template x-for="product in products">
                     <template x-if="product.category == 'fris'">
-                        <div class="bg-indigo-500 rounded p-2" @click="rekening.add(product)">
+                        <div class="bg-indigo-400 rounded p-2" @click="rekening.add(product)">
                             <div class="text-2xl" x-text="product.name"></div>
                         </div>
                     </template>
@@ -61,7 +61,7 @@
             <template x-if="products.length > 0">
                 <template x-for="product in products">
                     <template x-if="product.category == 'eten'">
-                        <div class="bg-teal-500 rounded p-2" @click="rekening.add(product)">
+                        <div class="bg-teal-400 rounded p-2" @click="rekening.add(product)">
                             <div class="text-2xl" x-text="product.name"></div>
                         </div>
                     </template>
